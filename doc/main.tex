@@ -1,0 +1,846 @@
+\documentclass[11pt,a4paper]{article}
+
+%% basic packages %%
+
+\usepackage{graphicx}
+\usepackage{amssymb, amsmath, xob-amssymb, amsfonts}
+\usepackage[hidelinks]{hyperref}
+\usepackage{setspace} \doublespacing
+\usepackage{booktabs}
+\usepackage[sort,compress,round]{natbib}
+\usepackage{bibentry}
+
+%% user defined packages %%
+\graphicspath{ {graph/} }
+\usepackage{bbm}
+\usepackage{amsthm}
+\usepackage{diagbox}
+\newtheorem{thm}{Proposition}
+\newtheorem{lemma}{Lemma}
+\usepackage{fullpage}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{framed}
+\usepackage[section]{placeins}
+\usepackage{enumitem}
+
+\usepackage[hang,flushmargin,bottom]{footmisc}  % places footnotes at page bottom
+\usepackage{titling}
+\settowidth{\thanksmarkwidth}{*}
+\setlength{\thanksmargin}{-\thanksmarkwidth}
+
+\usepackage{setspace} \doublespacing
+\renewcommand{\arraystretch}{1.5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{\vspace{-6ex}
+{Financial Fragility, Structural Instability, and \\[-1ex] Portfolio Investment: \Large Evolutionary Dynamics Revisited}\thanks{The preliminary version of this paper was presented at 30th International Conference Computing in Economics and Finance and 5th East Asia Game Theory conference in 2024. We benefit from discussions with conference and seminar participants at the University of British Columbia and Nanyang Technological University. Tae-Seok Jang is grateful to Vadim Marmer and Kevin Milligan for their hospitality during his research visit to UBC.}
+}
+
+\author{
+Namun Cho\thanks{253 Ayeon-ro, Jeju-si, Jeju-do, 63147, Republic of Korea, E-mail: namun@jri.re.kr} \\[-3ex] Jeju Research Institute \and Tae-Seok Jang\thanks{Corresponding Author, Daehak-ro, Buk-gu, Daegu, 41566, Republic of Korea, E-mail: taeseok.jang@gmail.com}\\[-3ex] Kyungpook National University 
+}
+
+\date{\smallskip December 15, 2025}
+
+
+\maketitle
+\begin{abstract}
+\noindent
+This study examines the evolutionary aspects of portfolio investment involving risky and risk-free assets in an uncertain market environment. We consider an investment game in which profit maximization by adjusting the number of risky assets in the portfolio is the basis of investment dynamics, similarly found in the governing rule for resource competition between hawks and doves in population dynamics. The investment dynamics exhibit a stable Nash equilibrium in which investors who hold as many risky assets as feasible accumulate more wealth in the repeated game. Since an increase in individual investor wealth owes much to risk-taking behavior, investment dynamics are susceptible to recurrent bubbles and crises. Given that wealth accumulation directly results from increased risky assets, the portfolio choice for risky assets seems rational (i.e., optimal) when investors face uncertainty. This situation provides insight into why financial institutions and investors are exposed to financial fragility and structural instability during periods of economic uncertainty. 
+\end{abstract}
+
+\phantom{} \hangindent=2em 
+\textit{JEL Classification: C63; C73; E32; G11} \\
+\hangindent=2em 
+\textit{Keywords}: Bubbles; Financial fragility; Hawk--Dove game; Portfolio choice; Structural instability 
+
+
+\newpage 
+\section*{Significance}
+
+This study considers the hawk-dove game to capture the significance of risk-return trade-off in portfolio choice. Preserving simplicity in investment decisions based on an evolutionary game, we model a governing guideline for the decision rule that investors tend to obey. The investment dynamics with optimal asset allocation will converge to a stable Nash equilibrium, in which investors who hold as many risky assets as feasible accumulate more wealth in the repeated game. We show that competitive markets drive the investment dynamics to the boundary between a normal state and a crisis state. Consequently, collective decisions of rational agents increase their financial fragility and have a negative effect on systemic risk, making the economy inherently vulnerable to crisis. %%%%CHO 불안정 경계로의 수렴으로 인한 근원적 불안정성 강조 20251229
+
+\section{Introduction}
+
+Financial markets exhibit persistent episodes of boom and collapse that standard rational models struggle to explain. While speculative behavior, leverage, and herding have been identified as drivers of crises [see, e.g., Brock and Hommes (1), Cont and Bouchaud (2), Day and Huang (3), De Long et al.\ (4), Gaunersdorfer et al.\ (5), Kirman (6), Lux (7)], less attention has been paid to the evolutionary mechanism underlying investors' strategic adaption [see also Amir (8)]. We propose a parsimonious evolutionary model in which wealth accumulation itself acts as the fitness criterion for survival in financial markets. Investors who allocate more to risky assets earn higher returns during stable periods and thus gain greater market influence. However, exceeding the critical threshold is associated with elevated systemic vulnerability and an increased probability of large drawdowns -- an evolutionary manifestation of Minsky's notion that \textit{stability breeds instability} [see Minsky (9)].
+
+Our approach adopts the hawk-dove framework [see, e.g., Chen et al.\ (10), Hanauske et al.\ (2010)] and tailors it to portfolio choice with the risk-return trade-off: high but unstable return for risky investment (hawk strategy) versus low but stable return for risk-free investment (dove strategy). Profit maximization by adjusting the number of risky assets in the portfolio is the basis of investment dynamics, as is similarly found in the governing rule for resource competition between hawks and doves in population dynamics. Note here that investors with a successful strategy attract more peers, while reducing prospective returns from a less successful strategy may discourage investment. Consequently, the replication process in the agent population, $x_i$, can be modeled using the differential equation:
+\begin{equation*}
+	\dot{x}_{i} =  x_i  (\pi_i - \overline{\pi}),
+\end{equation*}
+\noindent where $\dot{x}$ is the time derivative of population. $\pi_i$ and  $\overline{\pi}$ are the payoff of strategy $i$ and the average payoff, respectively. This mechanism lays a foundation for individual portfolio choice with marco-level structural instability, showing how competition can lead to instability of the economic system [see also Vercelli (12)].
+
+In particular, we consider the investment strategy as a partition of endowment in a continuum space of portfolio choice with possible actions to make the investment dynamics consistent with the description in financial markets. Moreover, we treat the returns from the previous game as an endowment for investment in the next period (cumulative payoff). As a novel feature of the modifications in the investment game, we verify that the optimal portfolio choice is consistent with an evolutionary stable Nash equilibrium. 
+
+In this game, the crucial factor that each agent must consider is the fact that the macroeconomic state whether the aggreate risk ratio exceeds a tipping point. If the ratio does not exceed the point regardless of the agent's portfolio, the best strategy of the agent is to invest all endowment to the risky asset. For the same reason, if the risk ratio exceeds the tipping point for all feasible portfolios of the agent, the best strategy is to hold a safe asset [see Cho and Jang (13)]. Hence, investors who hold as many risky assets as feasible accumulate more wealth in the repeated game. In other words, the higher rate of return from the risky asset contributes to an increase of the total wealth over time, and Nash equilibrium emerges in the long run, where agents should hold as many of the risky assets without exceeding the threshold where crisis occurs.
+
+The structural instability and high risk in the model can be compared to the bubbles of Allen and Gale (14). In their model, overinvestment in the risky asset drives the asset price away from the fundamental value and creates bubbles. In our model, the risk-return trade off emphasizes the high volatility in the risky asset, and the risky strategy undermines the financial stability in the economy causing the bubble to burst. Indeed, the approach in this study shares similarities with the literature, such as behavioral traits acting as catalysts for economic fluctuations. However, we pay more attention to the evolutionary nature of the decision-making process for investment [see, e.g., Maynard Smith (15), Hofbauer and Sigmund (16)]. As a merit, our game-theoretic approach to investment does not require strict assumptions, apart from information about return rates available to investors. The focus is on the effect of portfolio choice on wealth dynamics, where recurrent bubbles and disruptions are partly attributed to risk-taking bias. This approach enables us to approximate the dynamic behavior of many investors, and the investment dynamics can be seen as a natural approximation to bubbles based on optimal asset allocation under uncertainty.
+
+%%%%CHO2 20251229 NE로 가는 것이 왜 흥미로운지 부연설명 START
+
+The focus on Nash equilibrium is crucial in this context. In standard asset-allocation models, equilibrium is typically associated with stability and optimal risk sharing. In contrast, our framework demonstrates that when investment choices interact through aggregate risk exposure, Nash equilibrium can coincide with the maximum tolerable level of systemic risk. This result highlights a tension between individual optimality and collective stability, echoing classical insights from financial instability and game theory, but within a fully dynamic and evolutionary setting. 
+
+%%%%CHO2 20251229 NE로 가는 것이 왜 흥미로운지 부연설명 START
+
+
+% @JANG, (partially @CHO
+
+% bar R 의 정당성: risky or speculative asset에 over invest되었을 때 시스템이 불안정해진 사례 혹은 그에 대한 리터러쳐를 보여줌 그것을 모델화 (systemic risk) --> 완료(significance 파트 마지막 문장, model 뒷문장 %%%%CHO 로 검색)
+
+%todo PNAS에서 NE를 일일히 설명하고 있는지 체크해보기 NE로 가는게 왜 흥미로운지 서술 보강할 것. % arrow security, 차액거래.. Allen & Gale, Minsky, Arrow, Game thoery가 섞여서 이 모형이 왜 중요하고 흥미로운지 독자들에게 설명 --> 완료 %%%%CHO2 로 검색 
+
+%todo mixed strategy 와 portfolio strategy 다르다, 우리 제안은 다른거다. 왜 이렇게 고치는게 더 좋은가 <<이게 좀 더 파이넨셜 마켓에 가깝기 때문>> 이 부분을 명확하게 드러내자! 우리는 랜덤이 아니고 deterministic하다. (증명을 할 수 있게 하기 위한 것임. 변동성 추가 결과는 수치 시뮬레이션으로 다른 절에서 보일 것임).  ---> 완료 %%%%CHO3 검색
+
+%todo risk-return trade off는 반드시 crisis state를 내포한다고 할 수 있다. risk의 정의 자체에 들어있다. ( Q. risk-return trade off 이면 반드시 H_D structure 인건가? )  ---> 완료 %%%%CHO4 검색
+
+\bigskip 
+\section{Hawk--Dove Game and the Financial Market}
+
+The main aspects of the Hawk-Dove Game (HDG) in financial markets take account of the volatility of investment dynamics. Initially, we consider Markowitz's argument on risk-averse investors: investors face the risk--return trade-off in financial markets. A high-risk strategy has a higher but more unstable payoff, whereas a low-risk strategy leads to a lower but more stable payoff. In the simplest HDG (i.e., two players with pure strategy), we define $\Pi_{AB}$ as the payoff when an agent's strategy is $A$ and the opponent's strategy is $B$. 
+
+Table~\ref{tab:2p_payoff} shows the payoff matrices of the two agents in the HDG (left) and investment game (right). In HDG, when the strategy is $H$, an agent faces higher volatility in the payoff than with strategy $D$. In other words, the hawk strategy yields the highest payoff ($\Pi_{HD}$) when the opponent strategy is $D$, while it yields the lowest payoff ($\Pi_{HH}$) when the opponent strategy is $H$. 
+
+Conversely, the dove strategy has two payoffs: $\Pi_{DD}$ and $\Pi_{DH}$. Its payoffs are lower than $\Pi_{HD}$ but higher than $\Pi_{HH}$. Overall, the 2--person HDG with pure strategy has a straightforward comparison of the payoffs: $\Pi_{HD}>\Pi_{DD}>\Pi_{DH}>\Pi_{HH}$. For simplicity, we assume that the payoff of strategy $D$ is not affected by the opponent's decision: $\Pi_{DD}=\Pi_{DH}$.\footnote{This assumption stresses that the return on risk-free investment is hardly affected by economic fluctuations. Note that introducing this assumption does not change the main properties of HDG.} \\
+
+
+\begin{table}[hbt!]
+       \centering
+	\caption{Payoff in 2--P Game: HD (Left) and Investment (Right)}
+	\begin{tabular}{ cc }   % top level tables, with 2 columns
+		\begin{tabular}{c|cc}
+			\toprule
+				    & $H_1$ & $D_1$ \\
+			\midrule
+			$H_2$	& ($\Pi_{HH}, \Pi_{HH}$) & ($\Pi_{DH}, \Pi_{HD}$)\\
+			$D_2$	& ($\Pi_{HD}, \Pi_{DH}$) & ($\Pi_{DD},\Pi_{DD}$)\\
+			\bottomrule
+		\end{tabular} 
+		\quad \quad \quad 
+		\begin{tabular}{c|cc}
+			\toprule
+				                & $\mbox{Risky}_1$ & $\mbox{Risk-free}_1$ \\
+			\midrule
+			$\mbox{Risky}_2$	    & ($-W_{1}, -W_{2}$) & ($r_{S}W_{1}, r_{R}W_{2}$)\\
+			$\mbox{Risk-free}_2$	& ($r_{R}W_{1}, r_{S}W_{2}$) & ($r_{S}W_{1}, r_{S}W_{2}$)\\
+			\bottomrule
+		\end{tabular}
+	\end{tabular}
+       \label{tab:2p_payoff}
+\end{table}
+
+To set the stage for the investment game, we consider a direct mapping of HDG to portfolio choice. For example, $R$ refers to the hawk strategy, which can be regarded as an investment in risky assets. The notation for $S$ indicates the dove strategy, mapped into the investment in risk-free assets. Investors are assumed to enjoy a higher return from investment in risky assets ($r_{R} > r_{S}$); however, the conflict of risky strategies could result in a total loss of investments, i.e. $(-W_{1}, -W_{2})$, where $W$ stands for wealth. Note here that investors can be seen as opponents bidding for the risky assets, and thus driving the price up. The risk-taking  bias in asset management could lead to highly leveraged strategies in portfolio choice, and the economy facing high market volatility and systemic risk is subject to bubble collapse. \\
+
+\begin{table}[hbt!]
+       \centering
+       \caption{Main modifications of HDG}
+       \label{tab:sumary}
+       \begin{tabular}{llp{.4\linewidth}}
+           \toprule
+                & \textbf{Modification} & \textbf{Contents}\\
+           \midrule
+           (P1) & $N$--Person Game       &  Simultaneous game with massive investors \\
+           (P2) & Portfolio Strategy    &  Strategy profile as a ratio of risky and risk-free assets \\
+           (P3) & Cumulative Endowment  &  Wealth accumulation from previous periods \\
+           (P4) & Relative Payoff       &  Payoff as a form of interest rate from investment  \\   
+           \bottomrule
+       \end{tabular}
+\end{table}
+
+Table~\ref{tab:sumary} summarizes the main modifications in a conventional HDG, which aim to create a consistent and realistic description of investment behavior in financial markets. First, the investment game assumes that many investors participate simultaneously (P1), which differs from the conventional evolutionary game model setting, where two agents are randomly selected from a pool of finite agents to play the game. This modification is because the financial market can be considered the comprehensive result of individual transactions of self-interested agents (or an arbitrarily large number of decentralized agents).
+
+Second, the strategy profile of investors is represented by the ratio of risky assets in the portfolio choice (P2). Investors will not likely stick to pure or mixed financial market strategies. In pure strategies, investors choose between risky and risk-free assets but not both (\texttt{"}All--In\texttt{"} strategy). In reality, investors rarely behave in this manner. In a mixed strategy, investors randomly choose one of the pure strategies, which also does not match actual financial market behavior. Therefore, it is assumed in the game that investors can combine risky and risk-free assets in their portfolios. 
+
+%%%%CHO3 statement about Mixed strategy and Portfolio strategy START
+
+Although our setting may appear superficially related to mixed strategy formulations, the interpretation and mechanics are fundamentally different. In mixed strategies, agents randomize over discrete actions, and equilibrium concepts rely on probabilistic choice. By contrast, we model investment behavior as a continuous portfolio decision, where each agent allocates a fixed share of wealth to the risky asset. 
+
+Importantly, individual portfolio shares are deterministic and time-invariant. The dynamics of aggregate investment arise solely from wealth accumulation and selection: strategies that yield higher realized returns grow in influence over time. This deterministic structure allows us to characterize equilibrium outcomes analytically and to isolate the role of aggregate risk exposure without introducing stochastic choice. Extensions that incorporate return volatility or behavioral noise are explored separately through numerical simulations.
+
+%%%%CHO3 statement about Mixed strategy and Portfolio strategy END
+
+Third, as an important means of evolution in financial markets (or \texttt{"}the principle of survival of the fittest\texttt{"}), the payoff of the previous game serves as the endowment in the next game (P3). When the game is repeated, the modification creates substantial wealth accumulation fluctuations, reflecting actual asset markets where endowments usually comprise payoffs that have grown through asset market transactions. In other words, asset prices are ultimately formed due to an endowment-weighted purchase decision.
+
+Fourth, we consider that the payoffs grow from the wealth multiplication by interest rates, and the accumulation of endowments allows for the divergence of wealth between investors in the repeated game (P4). Investors endowed with the same amount of money for their investment do not align with substantial fluctuations in wealth dynamics; this will be discussed later.
+
+\bigskip 
+\section{Model}
+
+\paragraph{Finite-agent formulation} We first consider an economy with $N$ investors indexed by $i=1,...,N$. Each investor allocates a fixed share $\beta_i \in [0,1]$ of her wealth $W_{i,t}$ to risky asset, and the remainder $1-\beta_i$ to the risk-free asset. Let $r_R>r_S>0$ denote the respective returns on risky and risk-free assets. The wealth-weighted average share of risky asset is
+
+\begin{equation}
+	\label{eq:definitionHatBeta}
+	\hat\beta_t := \frac{\sum_i \beta_{i}W_{i,t}}{\sum_i W_{i,t}}.
+\end{equation}
+
+When $\hat\beta_t \le \bar R$, the economy is in a \emph{normal state} and the risky asset yields $r_R$. When $\hat\beta_t > \bar R$, the market enters a \emph{fragile state} in which risky asset returns drop sharply (e.g., $-1$). The threshold $\bar R$ thus represents the maximum level of aggregate risk the system can tolerate, analogous to a leverage or liquidity constraint in real markets. %todo: bar R 에 대한 설명 왜 상기 부등식이 성립할 때 normal state, crisis state가 되나 보충설명하기
+
+Each investor's wealth then evolves multiplicatively as 
+
+\begin{equation}
+    \label{eq:wealth_accumulation}
+    W_{i,t+1} = W_{i,t}[1+(1-\beta_i)r_S + \beta_i g(\hat\beta_t)],
+\end{equation}
+
+where $g(\hat\beta_t)=r_R$ in the normal state and $g(\hat\beta_t)=r_C=-1$ in the fragile state.
+
+%%In contrast to conventional evolutionary games, there is no explicit replicator dynamics. Instead, wealth accumulation itself acts as the selection mechanism: successful (i.e., wealthier) investors exert greater influence on the aggregate outcome. This framework therefore represents an evolutionary portfolio game, embedding the classical hawk-dove trade-off between high-risk-high-return and low-risk-low-return strategies.
+
+%%he threshold $\bar R$ serves as a coordination boundary: when the aggregate exposure remains below it, risk taking is rewarded; once surpassed, collective losses dominate. This minimal modification allows us to capture endogenous boom-bust dynamics without invoking irrationality or external shocks.
+
+To cover the full range of strategies, we assign uniformly spaced initial values $\beta_i = (i-1)/(N-1)$. This grid ensures a balanced representation of risk preferences from fully safe to fully risky. 
+
+\paragraph{Continuum limit} As $N\rightarrow \infty$, the discrete index $i$ becomes a continuous label $x\in [0,1]$, and the individual strategy $\beta_i$ converges to a continuous function $k(x)$. Wealth $W_{i,t}$ is then written as $W_i(x)$, and the aggregate risky share becomes
+
+\begin{equation}
+    \label{eq:continuous_definition_of_hat_beta_t}
+    \hat\beta_t = \frac{\int_0^1 k(x)W_t(x)dx}{\int_0^1 W_i(x)dx}.
+\end{equation}
+
+The corresponding wealth dynamics follow
+
+\begin{equation}
+    \label{eq:W_t+1_continuous}
+    W_{t+1}(x) = W_i(x)[1+ (1-k(x))r_S + k(x)g(\hat\beta_t)].
+\end{equation}
+
+A uniform initial distribution can be implemented by $k(x)=x$; more generally, one may specify a density $f(k)$ over $k\in[0,1]$. This continuum representation simplifies the analysis of equilibrium and convergence while remaining consistent with the finite-agent interpretation. 
+
+\paragraph{Economic interpretation} The wealth accumulation mechanism acts as the evolutionary selection rule: successful (i.e., high-return) strategies gain weight in aggregate wealth, tilting the system toward riskier exposure. This structure embeds the classical hawk-dove trage-off between high-risk/high-return and low-risk/low-return strategies. The threshold $\bar R$ serves as a coordination boundary where the aggregate equilibrium lies on the edge of fragility.
+
+%%%%CHO \bar R 에 대한 defense 논리  20251229 START
+
+A central element of our framework is the existence of an upper bound $\bar R$ on the aggregate exposure to risky assets. This threshold should not be interpreted as an arbitrary modeling device. Rather, it captures a reduced-form representation of systemic constraints that emerge when collective risk-taking becomes excessive.
+
+In modern financial systems, overinvestment in risky or speculative assets is often accompanied by leverage, margin requirements, and liquidity dependence. When aggregate exposure exceeds certain critical levels, even small shocks can trigger forced deleveraging, fire sales, and abrupt regime shifts in asset values. Such mechanisms have been extensively documented in the literature on financial instability, leverage cycles, and endogenous systemic risk.
+
+In our model, $\bar R$ summarizes these institutional and market-based limits -- such as risk-management constraints, liquidity shortages, or regulatory thresholds -- beyond which the risky asset can no longer sustain its normal return-generating regime. Once the aggregate risky share crosses $\bar R$, the system transitions endogenously into a crisis state, in which the value of the risky asset collapses. This parsimonious formulation allows us to focus on how individually rational investment behavior can collectively push the system toward its own stability boundary.
+
+%%%%CHO \bar R defense 논리 20251229 END
+
+
+\bigskip
+\section{Results}
+
+The model yields three main analytical results concerning equilibrium, convergence, and cyclical instability. 
+
+\begin{framed}
+	\begin{thm}[Nash Equilibrium in the One-Shot Game]
+		\label{prop:prop1}
+	 
+	 In a single-period game with $N$ investors, $\beta_{i}^\ast$ is the  investor $i$'s best response if and only if
+	 \[
+		{ \sum_i \beta_{i}^\ast \frac{W_i}{\widetilde{W}} = \bar{R}},
+	 \]
+ 	\end{thm}
+\end{framed}
+
+where $\widetilde W = \sum_{i=1}^N W_i$ denotes \emph{total aggregate wealth}. The term $W_i/\widetilde W$ thus represents investor $i$'s \emph{relative wealth weight} in the economy. In equilibrium, each investor's best response collectively maintains the aggregate risky share at the critical threshold $\bar R$. This normalization ensures that the weighted sum of individual risky shares equals the aggregate exposure $\hat \beta_t$; hence, the equilibrium condition $\sum_i \beta_i^\ast (W_i/\widetilde W)=\bar R$ is equivalent to $\hat\beta^\ast = \bar R$.
+
+\paragraph{Economic interpretation} The Nash equilibrium lies on the boundary separating the normal and fragile states. Investors implicitly coordinate at the edge of systemic stability: each finds it optimal to take on as much risk as possible, provided that aggregate exposure does not cross the threshold. 
+
+
+\begin{framed}
+	\begin{thm}[{Dynamic Convergence in a Repeated Game}] \label{thm:opti} 
+		In the repeated game with cumulative wealth, the wealth-weighted risk ratio $\hat\beta_t$ converges to $\bar{R}$:
+        \begin{equation}
+            \label{eq:prop2} \lim_{t\rightarrow\infty} \hat\beta_t = \bar R.
+        \end{equation}
+	\end{thm} 
+\end{framed}
+
+Investors whose portfolios are closer to the optimal share accumulate wealth at higher rates and their relative influence increases. As a result, the aggregate risk share stabilizes endogenously at the fragility boundary. 
+
+\begin{figure}[htbp]
+       \centering
+         \caption{Numerical simulation of $\hat{\beta}_t$ with $\bar R=0.8$, $r_R=0.1$, $r_S=0.04$}
+            \includegraphics[width=13cm, height=7.5cm]{beta.eps}
+       \label{fig:beta}
+\end{figure}
+
+\paragraph{Economic interpretation} Wealth accumulation functions as an evolutionary selection rule. Successful strategies (ie, high-return) gain more weight in aggregate wealth, driving the system toward the maximum sustainable risk. This mechanism connects micro-level portfolio adaptation with marco-level financial fragility. 
+
+\begin{framed}
+	\begin{thm}[{Crisis periodicity}]\label{thm:constant_period}
+		% In an $N$--person investment game with cumulative endowment, the period of state change depends on the {crisis threshold $\bar R$}, return rates from risky and risk--free assets.
+        Let $\gamma_t = t/\Gamma_t$ denote the ratio of total periods to crisis occurrences up to time $t$. Then, 
+
+        \begin{equation}
+            \label{eq:crisis_period_limit}
+            \lim_{t\rightarrow \infty}\gamma_t = \frac{1+r_R}{(r_R-r_S)(1-\bar R )}.
+        \end{equation}
+    \end{thm}
+\end{framed}
+
+The average length of the normal phase increases with the safe return $r_S$ and the threshold $\bar R$, but decreases with higher risky returns $r_R$. In other words, higher potential gains induce more frequent crisis. 
+
+\paragraph{Economic interpretation} The system generates endogenous boom-bust cycles without external shocks. During stable phases, rising returns encourage greater risk-taking, pushing the aggregate share toward the threshold. When the limit is exceeded, the crisis phase resets wealth distributions, and the cycle repeats -- an evolutionary manifestation of Minsky's notion that stability breeds instability.
+
+%%%%CHO4 statement about risk-return trade-off and crisis state: START
+
+A risk-return trade-off does not, by itself, logically imply the existence of crisis states. Many standard models accommodate higher expected returns through increased volatility without regime changes. However, in financial markets, risk is often associated with nonlinear losses arising from leverage, liquidity constraints, and forced adjustments. In such environments, higher risk exposure can translate into discrete shifts in market conditions rather than smooth fluctuations.
+
+Our model captures this empirically relevant feature by representing risk through a regime-switching structure. The crisis state should therefore be interpreted not as an inevitable consequence of risk-taking per se, but as a stylized representation of the systemic externalities that arise when aggregate exposure exceeds sustainable limits. 
+
+%%%%CHO4 statement about risk-return trade-off and crisis state: END
+
+
+% \section{Wealth Dynamics in Portfolio Investment Game} 
+
+% This section discusses the investment dynamics in a modified version of HDG with $N$ investors. First, we describe the steady state of investment dynamics to derive the optimal strategy in a one--shot game. We then investigate the dynamic behavior of wealth accumulation in the repeated game. Finally, we consider the impact of risky assets on investment dynamics and examine the relationship between the threshold value and return rates and the frequency of a crisis state.
+
+% \smallskip
+% \subsection{Portfolio Investment in One--Shot Game} 
+
+% The one-shot HDG with two agents has two pure Nash equilibria strategies: $(R, S)$ and $(S, R)$. Furthermore, a unique mixed strategy Nash equilibrium has risky investments with the probability of $(r_{R} - r_{S})/(1 + r_{R})$. Cho and Jang (2019) examined three Nash equilibria in HDG and found that one-shot HDG has neither a strong nor a weakly dominant strategy. Conversely, when the game is repeated infinitely, the ratio of the two strategies converges to a constant rate, which is evolutionary stable.\footnote{The oscillating patterns emerge from the history of previous strategies whenever agents choose rather sophisticated strategies (Nowak and Ohtsuki, 2008).} 
+
+% With the modifications of HDG, as discussed in the previous section, we examine the investment dynamics with many investors. In $N$--person HDG, there are a total of $2^{N}$ strategy pairs.\footnote{In contrast, the two-person game has only four action pairs: $(S,S)$, $(S,R)$, $(R,S)$, and $(R,R)$. The low-return state (`Crisis') is available if the strategy profile is $(R, R)$.} We use the ratio of the number of risky strategies ($N_{R}$) and total strategies ($N$) to measure the aggregate risk ratio ($\hat{\beta}$):\\
+% \begin{equation}
+% 	\hat\beta := \frac{N_R}{N}.
+% \end{equation}
+% In other words, $\hat{\beta}$ can be interpreted as the wealth-weighted average of risky strategies in the investment game. In particular, the events of a crisis state are based on the comparison of $\hat{\beta}$ and $\bar{R}$: \textit{if $\hat{\beta}$ exceeds a given threshold $\bar{R}$, the current state is \texttt{"}Crisis,\texttt{"} and risky strategy yields the lowest payoff. Otherwise, a risky strategy yields the highest payoff.}
+
+% We consider the payoff of $i^\text{th}$ investor in portfolio $\beta_{i}$ and $1 - \beta_{i}$ as the rate of risky and risk-free assets in the portfolio. The combination of $\beta_{i}$ and $1 - \beta_{i}$ is called the \textit{portfolio strategy}. The risk-free investments in his portfolio contribute to his wealth as follows:
+% \begin{equation} \label{eq:defHatBeta0}
+% 	\Pi^{S}_{i} = r_{S}(1-\beta_{i})\, W_i,
+% \end{equation}
+% where $\beta_{i}=W^R_{i}/W_{i}$ is the ratio of risky assets in the $i^\text{th}$ investor's portfolio.
+
+% In the game, $\Pi^{S}_{i}$ remains the same for all investors because it is assumed that the returns on risk-free investments are not affected by the crisis. The difference in individual investment performance comes from the returns on risky investments.\footnote{Investors are not necessarily aware of the aggregated ratio of risky assets, and our focus is on the evolutionary aspect of investment dynamics, where they care only about the return rates in their portfolio choice.} The return rate on risky investments can be expressed as a function of $\hat{\beta}$:
+% \begin{equation*}
+% {g(\hat{\beta})=}
+% \begin{cases}
+%        r_{R},   &  \quad \text{If } \hat{\beta} \leq \bar{R}\\ 
+%             -1,   &  \quad \text{Otherwise}
+% \end{cases}
+% \end{equation*}
+
+% The returns depend on whether $\hat\beta$ exceeds the threshold $\bar R$. Then, the wealth from risky investment can be expressed as the sum of returns on investment under normal and crisis states:
+% \begin{eqnarray}
+% 	\Pi^{R}_{i} &=& \beta_{i}\, W_{i}\, g(\hat\beta) \\ \nonumber
+% 	            &=& \beta_{i}\, W_{i}\, r_{R}\, \boldsymbol{\mathbbm{1}}_{\{\hat{\beta} \leq \bar{R}\}}\ -\ \beta_{i}\, W_{i}\, (1 - \boldsymbol{\mathbbm{1}}_{\{\hat{\beta} \leq \bar{R}\}}).
+% \end{eqnarray}
+
+% Note that $\boldsymbol{\mathbbm{1}}$ is an indicator function that returns one if $\hat\beta$ does not exceeds the threshold $\bar R$, and 0 otherwise.\footnote{The modifications where the payoff is defined as a decreasing function of the rate of risky strategy can be found in Chen et al.\ (2017).}
+
+% Then the $i^\text{th}$ investor builds his wealth from the following payoff:
+% \begin{equation} \label{eq:oneShotPortfolioWit}
+% 	\begin{split}
+% 		\Pi_{i}\ =&\ \Pi^{S}_{i}\ +\ \Pi^{R}_{i}\\
+% 		         =&\ \underbrace{(1-\beta_{i})r_{S}\, W_{i}}_{\text{Risk--free Investment}}\ +\ \underbrace{\beta_{i}r_{R}\, W_{i}\, \boldsymbol{\mathbbm{1}}_{\{\hat\beta \leq \bar R\}}}_{\text{Risky Investment: State 1}}\\
+%                         &-\ \underbrace{\beta_{i}\, W_{i}\, \{ 1 - \boldsymbol{\mathbbm{1}}_{\{\hat{\beta} \leq \bar{R}\}}\} }_{\text{Risky Investment: State 2}}
+% 	\end{split}
+% \end{equation}
+% where
+% \begin{equation}
+% 	\label{eq:definitionHatBeta}
+% 	\hat\beta := \frac{\sum_i W^{R}_{i}}{\sum_i W_{i}} = \frac{\sum_i \beta_{i}W_{i}}{\widetilde{W}}.
+% \end{equation}
+
+% Here, $\hat{\beta}$ is the ratio of aggregated risky assets to total wealth, $\widetilde{W} = \sum\limits_{i} W_i$, in the economy.\footnote{In the one-shot game, individual investors are endowed with the same wealth $\omega_{0}$. Total wealth and risky assets amount to $N\times \omega_{0}$ and $N_{R}\times \omega_{0}$, respectively. Hence, $\hat{\beta}$ boils down to Eq.~\eqref{eq:defHatBeta0}.} If $\hat\beta$ exceeds the threshold $\bar{R}$, then the investor experiences a loss in wealth, and the amount of the loss depends on the share of risky assets in their portfolio. The closer the $\beta_i$ is to unity, the more loss the investor bears, i.e., $\Pi = \{ (1-\beta_{i})r_{S} - \beta_{i} \}\, W_{i}$. The optimal portfolio choice $\beta^\ast_{i}$ is the best response in the Nash equilibrium. 
+
+% \begin{framed}
+% 	\begin{thm}[Nash Equilibrium in One-Shot Investment Game]
+% 		\label{prop:prop1}
+	 
+% 	 In an $N$--person one-shot game, $\beta_{i}^\ast$ is the $i^\text{th}$ investor's best response if and only if
+% 	 \[
+% 		{ \sum_i \beta_{i}^\ast \frac{W_i}{\widetilde{W}} = \bar{R}}.
+% 	 \]
+%  	\end{thm}
+% \end{framed}
+
+% Proposition~\ref{prop:prop1} discusses the optimal portfolio choice of the $i^\text{th}$ investor in the investment game. Because $r_{S}$ (the return rate of the risk-free asset) remains constant and smaller than $r_{R}$, the investor can benefit from a high return from the risky assets by holding as many risky assets as feasible. However, the return rate on risky assets falls negative in State 2 (the crisis state); thus, the investor ensures that $\hat\beta$ (the average risky asset ratio) remains beneath $\bar R$ (the crisis threshold). 
+
+% Therefore, the coordination between investors characterizes the Nash equilibrium $\boldsymbol{\beta}^\ast$ as a vector, making $\hat\beta$ equal to $\bar R$. Geometrically, $\boldsymbol{\beta}^\ast$ forms the surface of the hyperplane, which is a weighted sum of individual investors' strategies:
+% \begin{equation}
+% 	\bar R = \sum_i{ \beta_i^\ast}\frac{W_i}{\widetilde{W}}. 
+% \end{equation}
+
+% \smallskip
+% \subsection{Portfolio Investment in a Repeated Game}
+
+% In the repeated game, we consider the accumulation of endowment from the payoff in previous games. As mentioned, wealth dynamics are characterized by the multiplicatively cumulative payoff.\footnote{In general, it is assumed that an ordinary infinitely repeated game considers the total payoff from the sum of all payoffs.} The initial endowment is set to the payoff from the most recent game. The average rate of risky strategy in period $t$ is defined as the share of wealth--weighted risky assets:
+% \begin{equation}
+% 	\beta_t := \frac{\sum_i \beta_{i}\, W_{i,t}}{\sum_i W_{i,t}} = \sum_i \beta_{i}{ \frac{W_{i,t}}{\widetilde{W}}}.
+% \end{equation}
+% As mentioned, the cumulative development of wealth considers the payoff structure based on the multiplication of endowment ($W_{i,t}$) and a constant return rate ($r_{R}$ or $r_{S}$). Multiplicative accumulation is a catalyst for the primary mechanism behind the dynamic behavior in the investment game. In the repeated game, we consider the wealth dynamics of the $i^\text{th}$ investor, i.e., $W_{i,t}$. In period $t$, we denote $W^{R}_{i,t}$ as wealth from the return on risky assets and $W^{S}_{i,t}$ as risk-free assets. Then, the payoff of the next period can be expressed as the sum of the returns from the investment in risky and risk-free assets:
+
+% \begin{equation}\label{eq:Wit+1}
+% 	\begin{split}
+% 		W_{i t+1}\ =&\ W_{i,t}\ +\ \Pi^{S}_{i,t}\ +\ \Pi^{R}_{i,t}\\
+% 		           =&\ W_{i,t}\ +\ \underbrace{(1-\beta_{i})r_{S}\, W_{i,t}}_{\Delta W^{S}_{i,t}\text{: Safe Asset}}\ +\ \underbrace{\beta_{i}\, r_{R}\, W_{i,t}\,\boldsymbol{\mathbbm{1}}_{\{\hat\beta_{t} \leq \bar{R\}}}}_{\Delta W^{R}_{i,t}\text{: Risky Asset (State 1)}}\\
+%                          & -\underbrace{\beta_{i}\, W_{i,t}\, \{1-\boldsymbol{\mathbbm{1}}_{\{\hat{\beta}_{t} \leq \bar{R}\}}\} }_{\Delta W^{R}_{i,t}\text{: Risky Asset (State 2)}}
+% 	\end{split}
+% \end{equation}
+% where 
+% \begin{equation}\label{eq:betat}
+% 	\hat{\beta}_t := \frac{\sum_i W^{R}_{i,t}}{\sum_i W_{i,t}} = \sum_i \beta_{i} { \frac{W_{i,t}}{\widetilde{W}_t}}.
+% \end{equation}
+
+% When the game is repeated, we aggregate the risky assets of the individual investors in each round. The aggregated index for $\hat{\beta}_t$ describes the development of the risky asset ratio over time, i.e., Eq.~\eqref{eq:betat}. For simplicity, we assume that the individual investor does not change the share of risky assets in the portfolio over time, i.e., $\beta_{i}$ instead of $\beta_{i,t}$. Figure~{\ref{fig:beta}} shows the numerical simulation of $\hat{\beta}_t$ with parameters of return rates and the threshold value. The simulation considers 10,000 investors and exhibits the oscillating patterns around the Nash equilibrium $\bar{R}$. \\
+
+% \begin{figure}[htbp]
+%        \centering
+%          \caption{Numerical simulation of $\hat{\beta}_t$ with $\bar R=0.8$, $r_R=0.1$, $r_S=0.04$}
+%             \includegraphics[width=13cm, height=7.5cm]{beta.eps}
+%        \label{fig:beta}
+% \end{figure}
+
+% To examine the asymptotic convergence of $\hat{\beta}_t$ with massive investors, we first consider that individual investors are endowed with the same wealth $w_0$. Furthermore, we assume that all possible portfolio strategies are distributed uniformly. In other words, $\beta_i$ is uniformly distributed between intervals $[0,1]$. Then $\beta_i$ can be defined as follows:
+% \begin{equation}
+% 	\beta_i = \frac{i-1}{N-1},\quad i = 1,\cdots,N.
+% \end{equation}
+% Let $k$ be $(i-1)/(N-1)$ in the context of an infinite population. As more agents participate in the game, i.e., $N \rightarrow \infty$, $k$ becomes a continuous variable within a closed interval $[0,1]$. We assume that it is uniformly distributed\footnote{The sensitivity to this assumption is discussed in the next section}:
+% \begin{equation}
+% 	\beta_i = \lim_{N\rightarrow \infty} \frac{i-1}{N-1} = k\ \ \sim\ \ U(0,1).
+% \end{equation}
+% Then, Eqs.~\eqref{eq:Wit+1} and ~\eqref{eq:betat} can be rewritten as:
+% \begin{equation}
+% 	\begin{split}
+% 		W_{i t+1}\ =&\ W_{i,t}\ +\ \Delta W^{S}_{i,t}\ +\ \Delta W^{R}_{i,t}\\
+% 		           =&\ W_{i,t}\ +\ \underbrace{(1-k)r_{S}\, W_{i,t}}_{\Delta W^{S}_{i,t}\text{: Safe Asset}}\ +\ \underbrace{k\,  r_{R}\, W_{i,t}\, \boldsymbol{\mathbbm{1}}_{\{\hat\beta_{t} \leq \bar{R}\}}}_{\Delta W^{R}_{i,t}\text{: Risky Asset (State 1)}}\ \\
+%                          &- \ \underbrace{k\, W_{i,t}\, \{1- \boldsymbol{\mathbbm{1}}_{\{\hat\beta_{t} \leq \bar{R}\}}\}}_{\Delta W^{R}_{i,t}\text{: Risky Asset (State 2)}},
+% 	\end{split}
+% \end{equation}
+% where
+% \begin{equation}\label{eq:betatc}
+% 	\hat{\beta}_t := \frac{\int_0^1\, W^{R}_{i,t}\, dk}{\int_0^1\, W_{i,t}\, dk} = \int_0^1\, k\, \frac{W_{i,t}\, }{\widetilde{W}_t}dk.
+% \end{equation}
+
+% If the state is normal (`State 1'), the wealth dynamics can be expressed as follows: 
+% \begin{eqnarray}\label{eq:Wit+1_state1}
+% 	W_{i,t+1} &=& W_{i,t}\ +\ (1-k)r_{S}\, W_{i,t}\ +\  k r_{R}\, W_{i,t} \nonumber \\
+% 	         &=& W_{i,t}\, \{ 1+r_{S} + k(r_{R} - r_{S}) \} 
+% \end{eqnarray}
+% However, wealth dynamics are negatively affected by the crisis (`State 2'), and the amount of the loss is weighted by the share of risky assets in the portfolio: 
+% \begin{eqnarray}\label{eq:Wit+1_state2}
+% 	W_{i,t+1} &=& W_{i,t}\ +\ (1-k)r_{S}\, W_{i,t}\ -\  k\, W_{i,t} \nonumber \\
+% 	         &=& W_{i,t}\, \{ (1+r_{S})(1-k) \} 
+% \end{eqnarray}
+% Since the crisis occurs $\Gamma_{t}$ times in a given period $t$, the $i^\text{th}$ investor accumulates his wealth at normal and crisis return rates in a multiplicative manner for periods $t-\Gamma_{t}$ and $\Gamma_{t}$, respectively:
+% \begin{equation}\label{eq:Wit_total}
+% 	W_{i,t}\ =\ w_0\,  \{(1+r_{S})(1-k)\}^{\Gamma_{t}}\, \{ 1+r_{S} + k(r_{R}-r_{S}) \}^{t-\Gamma_{t}}.
+% \end{equation}
+% The optimal portfolio strategy $k^\ast_{t} = 1 - \frac{1+r_{R}}{r_{R}-r_{S}}\, \frac{\Gamma_{t}}{t}$ results from the maximization of wealth; see the Appendix {(Lemma~\ref{thm:k_t^ast})}. The optimal portfolio strategy depends on return rates and the frequency of a crisis. In general, investors can maximize wealth by holding more risky assets when $r_{R}$ is high or $r_{S}$ is low. However, if more crises occur within period $t$, investors who hold relatively a small number of risky assets accumulate more wealth. Therefore, the investors with the optimal strategy succeed in increasing their wealth over time, leading to the concentration of wealth.
+
+% \begin{framed}
+% 	\begin{thm}[{Nash Equilibrium in a Repeated Investment Game}] \label{thm:opti} 
+% 		In an $N$--person investment game with cumulative endowment, the ratio of aggregated risky assets, $\hat{\beta}$, converges to $\bar{R}$.
+% 	\end{thm} 
+% \end{framed}
+
+% Proposition~\ref{thm:opti} verifies that investors who keep the share of their risky assets to the level suggested by the Nash Equilibrium maximize the payoffs from their investments, and the ratio of aggregated risky assets to total wealth converges to the threshold $\bar{R}$. In other words, the crisis has asymmetric impacts on the groups of investors; investors with high $\beta$ are severely affected by the crisis. In contrast, investors with optimal strategies accumulate wealth at higher rates. Risky assets from successful investors become relatively more important over time, while investors with low $\beta$ will have little influence on the share of aggregated risky assets. 
+
+% Furthermore, the implication for the optimal portfolio choice can be found in second-price auctions, where bidders bid the true values of items, which is considered ideal. The distinction between the investment game and the auctions lies within the threshold $\bar{R}$. Our investment game considers the exogenously given $\bar{R}$, making the asset value extrinsic; however, auctions have intrinsic true values for items.
+
+% Proposition~\ref{thm:opti} and Eqs.~\eqref{eq:opt} in the Appendix suggest that the periodic cycle of the crisis state { $\gamma_t$} depends on the following parameters in the game:
+% 	\begin{equation} \label{eq:gam_period}
+% 		{\lim_{t\rightarrow\infty}}\gamma_{t}\ =\ \frac{1+r_{R}}{r_{R}-r_{S}}\, \frac{1}{1-{\bar R}}.
+% 	\end{equation}
+	
+% In other words, the frequency of a crisis depends on the return rates from risky and risk--free assets and the optimal portfolio strategy, leading to Proposition~\ref{thm:constant_period}. 
+
+% \begin{framed}
+% 	\begin{thm}[{Periodic Cycle in Investment Game with Cumulative Endowment}]\label{thm:constant_period}
+% 		In an $N$--person investment game with cumulative endowment, the period of state change depends on the {crisis threshold $\bar R$}, return rates from risky and risk--free assets.
+% 		\end{thm}
+% \end{framed}
+
+% In the repeated game, we observe a more extended period of the normal state when the return on risk--free investments $r_{S}$ is high. Similarly, a higher value for the optimal portfolio strategy is positively correlated with the period of the normal state; however, a higher value for $r_{R}$ increases the frequency of the crisis given a period. { And a lower crisis threshold $\bar R$ also increases the frequency of the crisis.}
+
+\bigskip 
+\section{Numerical Simulation}
+
+%todo: [[to be modified: adding variable $\bar R_t$]]
+%todo: risky asset r_S > r_C > -1, fixed or variable 효과적으로 시각화할 방안 생각해보기
+
+
+
+This section considers numerical simulations for an investment game with 10,000 investors.  Table~\ref{tb:parameters} shows the parameter values in simulations and the game is repeated over 1,000 times. \\
+
+%%%%CHO5 시뮬레이션 파트 부연설명: START
+
+\paragraph{Model A} We consider some variations in the investment propensity ($\beta_i$) and initial wealth ($\omega_{0}$) to check the robustness of the analytic results in the previous section. 
+
+\paragraph{Model B} To assess the robustness of our results, we extend the baseline model by allowing the systemic threshold $\bar R$ to vary over time. The time-varing threshold $\bar R_t$ can be interpreted as reflecting changes in market liquidity, regulatory constraints, or aggregate risk tolerance. While $\bar R_t$ is treated as exogenous in the simulations, its evolution captures realistic fluctuations in the financial environment.
+
+\paragraph{Model C} We also relax the extreme assumption that the crisis-state return equals $-1$. Allowing the crisis return $r_C$ to lie strictly between $-1$ and the normal-state return $r_S$ preserves the qualitative dynamics of the model. Even when the crisis state involves partial losses rather than complete collapse, the economy continues to evolve toward the systemic threshold, confirming that our results do not hinge on extreme payoff assumptions.
+
+%%%%CHO5 시뮬레이션 파트 부연설명: END
+
+\begin{table}[h!]
+	\centering 	\caption{Parameters in numerical simulation models}
+	\begin{tabular}{l|ccc} \toprule 
+		Parameter & \hfil Model A & Model B & Model C  \\
+		\midrule
+		Number of Investors & \hfil 10,000 & 10,000 & 10,000\\
+		Crisis State Threshold ($\bar{R}$) & \hfil 0.8 & Varies & 0.8\\
+		Return on Risky Asset ($r_{R}$) & \hfil $\{0.1, -1\}$ & $\{0.1, -1\}$ & $\{0.1, r_C\}, -1 \le r_C < r_S$ \\
+		Return on Risk-free Asset ($r_{S}$) & \hfil 0.04 & 0.04 & 0.04\\         \bottomrule
+	\end{tabular}
+       \label{tb:parameters}
+\end{table}
+
+\subsection{Model A}
+
+Table~\ref{tb:models} summarizes the model settings for the numerical simulations. First, we consider the variations of initial wealth: the difference between Models 1 and 2 and between Models 3 and 4. Models 1 and 3 are equivalent to the numerical simulation of the theoretical model with multiplicatively cumulative wealth. Variations in investor portfolio choices are considered between Models 1 and 2 and between Models 3 and 4. \\
+
+\begin{table}[hbt!]
+	\centering 	\caption{Model setting in numerical simulations}
+	\begin{tabular}{c|c p{4cm}} \toprule 
+\diagbox[width=16em]{\small Initial Wealth}{\small \\[-6ex] Risk Aversion\\[-1ex]}	
+	                           &  Equally Distributed  & \quad \quad \quad Random  \\[-0.5ex]	 \midrule
+              Constant         &  Model 1  &  \quad \quad \quad Model 2 \\
+		      Random           &  Model 3  &  \quad \quad \quad Model 4 \\ \bottomrule
+	\end{tabular}
+	\label{tb:models}
+\end{table}
+%%todo: Figures V and VI
+The Appendix collects the simulated distributions of investment propensity and initial wealth for the four models (see Figures V and VI). Figure~\ref{fig:average_beta} shows the dynamic behavior of average $\beta_i$ in the repeated game. The simulation results verify that individual wealth and portfolio choice differences at the initial stage create little variation in the aggregated risky asset ratio. The aggregated risky asset ratio converges to the threshold value in all cases. \\
+
+\begin{figure}[htbp!]
+	\centering 	\caption{Wealth-weighted average of $\beta_i$}
+	\includegraphics[width=12cm,height=6.5cm]{_average_beta__combine.png}
+	\label{fig:average_beta}
+\end{figure}
+
+Figure~\ref{fig:final_wealth} shows individual final wealth ($W_{i,t}$) scatter diagrams and the propensity to invest in risky assets ($\beta_{i}$). Note that $T$ is the number of total rounds, and the final wealth is $W_{i,t}$, which verifies the results in Proposition 2: the optimal $\beta_{i}$ converges to the threshold for the crisis state ($\bar{R}$), and relative wealth is concentrated on the investor with the optimal portfolio choice.
+
+\begin{figure}[htbp!]
+	\centering 	\caption{Scatter diagram of final round}
+	\includegraphics[width=12cm,height=5cm]{_final_wealth__combine.png}
+	\includegraphics[width=12cm,height=5cm]{log__final_wealth__combine.png}
+	\caption*{\small Note: Top panel for $W_{i,t}$ and $\beta_i$, Bottom panel for $\log(W_{i,t})$ and $\beta_i$}
+	\label{fig:final_wealth}
+\end{figure}
+
+\subsection{Model B}
+
+[Show the result of Simulation Model B]
+
+\subsection{Model C}
+
+[Show the result of Simulation Model C]
+
+\bigskip 
+\section{Discussion}
+
+This study examined the dynamic behavior of investment in a modified version of the hawk-dove game. We analyzed wealth dynamics from portfolio investment with many agents, and the game's simplicity allowed us to find a tractable solution for the optimal portfolio strategy. The portfolio choice of individual investors drives the system toward the boundary of financial fragility, and Nash equilibrium emerges with cycles of leverage buildup and collapse. Hence, the model provides a minimal evolutionary mechanism linking individual portfolio competition to macro-financial instability. 
+$\bar R$. Even without irrational exuberance or external shocks, the economy endogenously generates . 
+
+\paragraph{Endogenous fragility} Because investors' wealth represents their market influence, successful strategies amplify systemic exposure. This process transforms micro--level heterogeneity into macro--level fragility -- an evolutionary form of Minsky's `` stability breeds instability.''
+
+\paragraph{Empirical relevance} In empirical terms, the threshold $\bar R$ can correspond to observable indicators such as aggregate leverage ratios, risk-weighted assets, or market--wide Value--at-Risk limits. When these indicators tighten, our model predicts longer stable phases and smaller amplitude of cycles. Conversely, financial liberalization that relaxes such constraints shortens stability periods and increases systemic volatility. 
+
+\paragraph{Policy implications} Macro prudential policies that cap leverage or increase safe--asset returns($r_S$) can effectively lengthen stability cycles, but they may also slow wealth accumulation and widen cross-sectional inequality. Hence, financial stability and distributive equity may  involve an inherent trade--off within this evolutionary setting. 
+
+\paragraph{Future extensions} The current analysis assumes a fixed threshold $\bar R$. Allowing $\bar R$ to evolve endogenously with macro--financial conditions -- such as changing liquidity or regulatory buffers -- will enable the study of how markets adapt to a moving fragility boundary. Preliminary simulations suggest that $\beta_t$ tracks the shifting $\bar R_t$, maintaining the same boundary--following property found in the fixed--threshod case. A formal analysis of the extension is left for furure work. 
+
+Overall, the evolutionary portfolio framework clarifies how self--reinforcing risk concentration, bounded by and adaptive threshold, can explain recurrent financial instability without exogenous shocks. 
+
+% This study examined the dynamic behavior of investment in a modified version of the hawk-dove game. We analyzed wealth dynamics from portfolio investment with many agents, and the game's simplicity allowed us to find a tractable solution for the optimal portfolio strategy. In Nash equilibrium, investors who maintain the optimal portfolio accumulate more wealth; however, the success is a direct result of an increase in risky assets, which makes financial markets susceptible to crises. Therefore, the model exhibits bubbles and periodic disruptions when the investment game is repeated.
+
+% We have shown that the rationality behind portfolio choice could explain the investment strategies, which might correlate little or mildly with business cycles. This finding suggests that monitoring financial markets will be a high priority during economic uncertainty because investors are easily tempted to put their investments at higher risk. From these considerations, the selection mechanism (or evolution) behind the behavioral rule provides insight into why financial markets have been exposed to high risk over the last two or three decades.
+
+% This study is limited to considering the fixed strategy in portfolio choice for wealth distribution in equilibrium. Future research is needed to consider the dynamic behavior of portfolio strategies based on investor characteristics in economic networks.
+
+%%todo: Appendix SI에 들어가야할지 판단
+\newpage 
+\section*{Appendix}
+\subsection*{A1: Proofs}
+
+[todo: rewrite by the changed notation and fix broken eq link] -- after discussion 20251230
+
+\subsubsection*{Proposition~\ref{prop:prop1}}
+
+\begin{proof}[\textbf{Proof}]
+	The $i^\text{th}$ investor seeks to maximize the payoff from his investment:
+	\[
+		\max_{\beta_{i}}\ \Pi_{i}
+	\]
+	where $\beta_{i}^\ast$ is the best response in the investment game.
+	
+	If all investors satisfy maximization ($i=1,2,\cdots,N$), the strategy profile $\boldsymbol{\beta}^\ast:=(\beta_{1}^\ast,\cdots,\beta_{N}^\ast)$ is a Nash equilibrium. 
+	From Eqs.~\eqref{eq:oneShotPortfolioWit} and \eqref{eq:definitionHatBeta}, we can rewrite $\Pi_{i}$ into the function of $\beta_{i}$:
+	\begin{equation}%\label{eq:WiBeta}
+		\Pi_{i}(\beta_{i}) = r_{S}\, W_i\ +\ \beta_{i}\, W_{i}\, \{\boldsymbol{\mathbbm{1}}_{\{\hat{\beta} \leq \bar{R}\}}\, (2+r_{R})-(2+r_{S})\}.\notag
+	\end{equation}
+	The first-order condition is as follows:
+	\begin{equation}
+		\label{eq:WiBetaPartial}
+		\frac{\partial\Pi_{i}}{\partial\beta_{i}} = W_{i}\, \{\boldsymbol{\mathbbm{1}}_{\{\hat{\beta} \leq \bar{R}\}}\, (2+r_{R})-(2+r_{S})\}.
+	\end{equation}
+	The optimum value has three possibilities based on $\hat{\beta}$, and the cases under the normal or crisis states of the game have corner solutions:
+	\begin{itemize}
+		\item[(1)] \textbf{Normal state} ($\hat{\beta} \leq \bar{R}$) :\ We have $\frac{\partial\Delta W_{i}}{\partial\beta_{i}}>0$ regardless of $\beta_{i}$; hence $\beta_{i}^\ast=1$. However, if $\hat{\beta} < \bar{R}$, the other investors have the possibility of $\exists \beta_{j}^{\ast\ast}>\beta_{j}^\ast$ such that $\Pi_{j} (\beta_{j}^{\ast\ast})>\Pi_{j} (\beta_{j}^\ast)$. Therefore, the Nash equilibrium exists only when $\beta_{i}^\ast=1$ and $\hat{\beta}=\bar{R}$.
+		\item[(2)] \textbf{Crisis state} ($\hat{\beta} > \bar{R}$) :\ We have $\frac{\partial\Delta W_{i}}{\partial\beta_{i}}<0$ regardless of $\beta_{i}$. However, if $\hat{\beta} > \bar{R}$, the other investors have the possibility of $\exists \beta_{j}^{\ast\ast}<\beta_{j}^\ast$ such that $\Pi_{j} (\beta_{j}^{\ast\ast})>\Pi_{j}(\beta_{j}^\ast)$. Therefore, the Nash equilibrium exists only when $\beta_{i}^\ast=0$ and $\hat\beta=\bar R$. 
+		\item[(3)] \textbf{Transition state} :\ The value of $\beta_{i}$ decides the crisis. In other words, the risky investments of the investor determines the crisis state, and it makes $\bar{R} - \hat{\beta}$ either positive or negative. From Eq.~\eqref{eq:definitionHatBeta}, we consider the difference between the threshold and the aggregated risky asset ratio:
+		\[
+			\bar{R} - \hat{\beta} = \bar{R} - \frac{\beta_{i}\, W_{i}\ +\ \sum_{j\neq i}\beta_{j}\, W_{j}}{W_{i}\ +\ \sum_{j\neq i}W_{j}}.
+		\]
+		Hence, $\bar{R} - \hat{\beta}$ is strictly decreasing in $\beta_{i}$ because $\frac{\partial\bar{R} - \hat{\beta}}{\partial \beta_{i}}<0$. 
+		
+		Suppose that $\beta_{i}^\ast = \frac{\bar{R}\, W_{i}\ +\ \sum_{j\neq i}(\bar{R} - \beta_{j})W_{j}}{W_i}$, which makes $\bar{R} - \hat{\beta} = 0$. Then, it can be seen from Eq.~\eqref{eq:WiBetaPartial} that $\Pi_i>0$ if $\beta_{i}<\beta_{i}^\ast$ and $\Pi_{i}<0$ if $\beta_{i}>\beta_{i}^\ast$. This outcome implies that $\beta_{i} = \beta_{i}^\ast$ maximizes $W_i$. Hence, $\hat{\beta}=\bar{R}$ is the Nash equilibrium.
+	\end{itemize}
+\end{proof}
+
+
+\bigskip 
+
+	\begin{lemma}[\textbf{Convergence Point of the Rate of Risky Asset Ratio}] 
+		\label{prop:hat-beta-convergence-to-bar-R} 
+	    $ $ \newline
+		In a cumulative PHDG, if $\hat\beta_t$ is convergent, it converges to $\bar R$. 
+	\end{lemma}
+
+\smallskip
+	\begin{proof}[\textbf{Proof}]
+		From Eqs.~\eqref{eq:betatc}, \eqref{eq:Wit+1_state1} and \eqref{eq:Wit+1_state2}, we can get $\hat\beta_{t+1}$ in both states. For State 1, 
+		\begin{eqnarray}\label{eq:betat+1_state1}
+			\hat\beta_{t+1} = \frac{\int_0^1 kW_{i,t+1}dk}{\int_0^1 W_{i,t+1}dk}
+			=\frac{\int_0^1 k[1+r_S+k(r_R-r_S)]W_{i,t}dk}{\int_0^1[1+r_S+k(r_R-r_S)]W_{i,t}dk}.
+		\end{eqnarray}
+		Then we can express Eq.~\eqref{eq:betat+1_state1} in terms of $\hat\beta_t$:
+		\begin{gather}
+			\hat\beta_{t+1}  = \frac{\widetilde r \hat\beta_t + \mu_{2t}}{\widetilde r +\hat\beta_t}= \frac{\widetilde r \mu_{1t} + \mu_{2t}}{\widetilde r +\mu_{1t}}, \notag\\
+			\text{where}~\widetilde r=\frac{1+r_S}{r_R-r_S},~\widetilde{W_t}=\int_0^1 W_{i,t}dk,~\mu_{1t}=\hat\beta_t=\int_0^1 k \frac{W_{i,t}}{\widetilde{W_t}}dk,~\mu_{2t}=\int_0^1 k^2 \frac{W_{i,t}}{\widetilde{W_t}}dk.\notag
+		\end{gather}
+
+		In fact, $W_{i,t}(k)/\widetilde{W}_t$ is the density function of normalized wealth at time $t$, then $\mu_{1t}=\hat\beta_t$ can be interpreted as the first moment, and $\mu_{2t}$ can be interpreted as the second moment of wealth distribution at $t$.
+		For State 2, 
+		\begin{eqnarray}%\label{eq:betat+1_state2}
+			\hat\beta_{t+1} = \frac{\int_0^1 kW_{i,t+1}dk}{\int_0^1 W_{i,t+1}dk}
+			=\frac{\int_0^1 k(1+r_S)(1-k)W_{i,t}dk}{\int_0^1(1+r_S)(1-k)W_{i,t}dk}.\notag
+		\end{eqnarray}
+		Then 
+		\begin{gather}
+			\hat\beta_{t+1} = \frac{ \hat\beta_t - \mu_{2t}}{1-\hat\beta_t}.\notag
+		\end{gather}
+		From Cauchy-Bunyakovsky-Schwartz inequality for integrals, 
+		\begin{eqnarray}\label{eq:CBS}
+			\left[\int_0^1 \sqrt{W_{i,t}} k\sqrt{W_{i,t}}dk\right]^2 \le \int_0^1 \left[\sqrt{W_{i,t}}\right]^2 dk \int_0^1 \left[k\sqrt{W_{i,t}}\right]^2 dk.
+		\end{eqnarray}
+		Dividing both side by $\widetilde W_t^2$, Eq.~\eqref{eq:CBS} can be expressed as follows:
+		\begin{eqnarray}
+			\mu_{1t}^2 \le \mu_{2t}.\notag
+		\end{eqnarray}
+		The equality holds if and only if $\sqrt{W_{i,t}}$ and $k\sqrt{W_{i,t}}$ is linearly dependent. However, these two functions are not linearly dependent. Therefore, in State 1, 
+		\begin{eqnarray}\label{eq:hatbeta_state1}
+			\hat\beta_{t+1}-\hat\beta_{t} = \frac{\mu_{2t}-\mu_{1t}^2}{S+\hat\beta_t} = \frac{Var(W_{i,t})}{S+\hat\beta_t} > 0.
+		\end{eqnarray}
+		And in State 2,
+		\begin{eqnarray}\label{eq:hatbeta_state2}
+			\hat\beta_{t+1}-\hat\beta_{t} = \frac{\mu_{1t}^2 - \mu_{2t}}{1-\hat\beta_t} =-\frac{Var(W_{i,t})}{1-\hat\beta_t} < 0.
+		\end{eqnarray}
+		Eqs.\eqref{eq:hatbeta_state1} and \eqref{eq:hatbeta_state2} implies $\hat\beta_t$ is oscillating around $\bar R$. Because $\hat\beta_t$ is bounded in $[0,1]$, there exist at least a subsequence of $\hat\beta_t$ which converges to $\bar R$. From the Bolzano-Weierstrass theorem and the property of convergent sequence, any subsequence of the convergent sequence should converge to the same point and we can confirm that $\hat\beta$ converges to $\bar R$ if it is convergent. 
+	\end{proof}
+
+\bigskip 
+	\begin{lemma}[\textbf{Optimal Strategy of Fixed Cumulative PHDG}]
+		\label{thm:k_t^ast} 
+			Let $\Gamma_t$ be a total number of crisis state up to period $t-1$. Then the unique optimal portfolio strategy $k_t^\ast$ of fixed cumulative PHDG exists: 
+			\[
+				k_t^\ast = 1-\frac{1+r_R}{r_R-r_S}\frac{\Gamma_t}{t}.
+			\]
+	\end{lemma}
+
+\smallskip
+	\begin{proof}[\textbf{Proof}]
+		
+		Consider an investment game experiencing a crisis a total of \(\Gamma_t\) times over period \(t-1\). The wealth \(W_{i,t}(k)\) at time \(t\) for strategy \(k\) can be expressed as a degree \(t\) polynomial in \(k\), shown as:
+
+		\begin{equation}
+			W_{i,t}(k) = w_0  [(1+r_S)(1-k)]^{\Gamma_t} [1+r_S + k(r_R-r_S)]^{t-\Gamma_t}.\notag
+		\end{equation}
+
+		A unique critical point \(k_t^\ast\) is determined by the first-order condition:
+
+		\begin{equation}%\label{eq:foc}
+			\begin{split}
+				\frac{d W_{i,t}(k)}{d k} = &w_0(1+r_S)^{\Gamma_t}(1-k)^{\Gamma_t-1}(1+r_S+k(r_R-r_S))^{t-\Gamma_t-1}
+				\\&\left(t(1-k)(r_R-r_S)-\Gamma_t(1+r_R)\right)=0,\notag
+			\end{split}
+		\end{equation}
+
+		leading to:
+
+		\begin{equation}\label{eq:opt}
+			k_t^\ast = 1-\frac{1+r_R}{r_R-r_S}\cdot\frac{\Gamma_t}{t}.
+		\end{equation}
+
+		$k_t^\ast$ also satisfies the second-order condition for maximum:
+
+		\begin{equation}
+			%\label{eq:soc}
+			\left.\frac{d^2 W_{i,t}}{dk^2}\right\vert_{k=k_t^\ast} = -(1-k_t^\ast)(1+r_S+k_t^\ast(r_R-r_S))\gamma_t(r_R-r_S) < 0. \notag
+		\end{equation}
+	\end{proof}
+
+\bigskip
+	\begin{lemma}[\textbf{Convergent Period in Fixed Cumulative PHDG}]\label{prop:convergent_period}
+		The average period of investment game $\gamma_t = \frac{t}{\Gamma_t}$ is convergent.
+	\end{lemma}
+
+\smallskip
+	\begin{proof}[\textbf{Proof of Lemma~\ref{prop:convergent_period}}]
+		It is equivalent to prove the sequence $\frac{\Gamma_t}{t}$ is convergent.
+		To prove the convergence of $\frac{\Gamma_t}{t}$, it is sufficient to prove:
+		\[
+			\forall \epsilon>0, \quad\exists T ~s.t.~ \forall t_2>t_1>T,\quad \left\vert \frac{\Gamma_{t_1}}{t_1} - \frac{\Gamma_{t_2}}{t_2} \right\vert < \epsilon.
+		\]
+		From the given condition, we can confirm the below inequalities:
+		\begin{gather}
+			t_n > \Gamma_{t_n},\quad n=1,2,\label{eq:tn>gammatn}\\
+			\Gamma_{t_2} \ge \Gamma_{t_1}, \label{eq:gamma-t2>=gamma-t1}\\
+			t_2-t_1 \ge \Gamma_{t_2} - \Gamma_{t_1}.\label{eq:t2-t1-ge-gt2-gt1}
+		\end{gather}
+		Suppose $T=\frac{t_2 - t_1}{\epsilon}$, then for all $t_2>t_1>T$ and $\epsilon >0$, 
+		\begin{eqnarray}%\label{eq:delta_t21<epsilon}
+			\frac{t_2-t_1}{t_1}< \frac{t_2 - t_1 }{T} = \epsilon. \notag
+		\end{eqnarray}
+
+		\begin{itemize}
+		\item[$\bullet$] Case 1: $\frac{\Gamma_{t_1}}{t_1} \ge \frac{\Gamma_{t_2}}{t_2}$
+		\begin{align}
+			\left\vert \frac{\Gamma_{t_1}}{t_1} - \frac{\Gamma_{t_2}}{t_2} \right\vert &= \frac{t_2\Gamma_{t_1}-t_1\Gamma_{t_2}}{t_1t_2}\le \frac{t_2\Gamma_{t_2}-t_1\Gamma_{t_2}}{t_1t_2} &\text{(From Eq.~\eqref{eq:gamma-t2>=gamma-t1})}\notag\\
+			&=\frac{\Gamma_{t_2}(t_2 - t_1)}{t_1t_2} \le \frac{(\Gamma_{t_1}+t_2-t_1)(t_2-t_1)}{t_1t_2}&\text{(From Eq.~\eqref{eq:t2-t1-ge-gt2-gt1})}\notag\\
+			&<\frac{(t_1+t_2-t_1)(t_2-t_1)}{t_1t_2}=\frac{t_2-t_1}{t_1}<\epsilon. &\text{(From Eq.~(\ref{eq:tn>gammatn}))}\notag
+		\end{align}
+		\item[$\bullet$] Case 2: $\frac{\Gamma_{t_1}}{t_1} < \frac{\Gamma_{t_2}}{t_2}$
+		\begin{align}
+			\left\vert \frac{\Gamma_{t_1}}{t_1} - \frac{\Gamma_{t_2}}{t_2} \right\vert &= \frac{t_1\Gamma_{t_2}-t_2\Gamma_{t_1}}{t_1t_2} < \frac{t_2\Gamma_{t_2}-t_2\Gamma_{t_1}}{t_1t_2} & (\because t_2 > t_1)\notag\\
+			&=\frac{\Gamma_{t_2}-\Gamma_{t_1}}{t_1} \le \frac{t_2-t_1}{t_1}<\epsilon. &\text{(From Eq.~\eqref{eq:t2-t1-ge-gt2-gt1})}\notag
+		\end{align}
+		\end{itemize}
+		
+	\end{proof}
+
+\bigskip
+
+\subsubsection*{Proposition~\ref{thm:opti}}
+
+\begin{proof}[\textbf{Proof}]
+
+	Let $i_t^\ast$ be the agent index of $k_t^\ast$. From the lemma~\ref{thm:k_t^ast}, 
+		\begin{eqnarray}
+			W_{i_t^\ast t}(k_t^\ast) > W_{i,t}(k)~\forall~k\neq k_t^\ast ~\Rightarrow~ \frac{W_{i,t}(k)}{W_{i_t^\ast t}(k_t^\ast) }< 1 ~\forall~k\neq k_t^\ast.\notag
+		\end{eqnarray}
+
+		From the Eq.~\eqref{eq:Wit_total},
+
+		\begin{align}
+			\frac{W_{i,t}}{W_{i_t^\ast t}(k_t^\ast)} &= \frac{\ w_0\,  \{(1+r_{S})(1-k)\}^{\Gamma_{t}}\, \{ 1+r_{S} + k(r_{R}-r_{S}) \}^{t-\Gamma_{t}}}{\ w_0\,  \{(1+r_{S})(1-k_t^\ast)\}^{\Gamma_{t}}\, \{ 1+r_{S} + k_t^\ast(r_{R}-r_{S}) \}^{t-\Gamma_{t}}}\notag\\
+			&=\left[\frac{1-k}{1-k_t^\ast}\right]^{\Gamma_t}\left[\frac{\widetilde r+k}{\widetilde r+k_t^\ast}\right]^{t-\Gamma_t}\notag\\
+			&=\left[\left[\frac{1-k}{1-k_t^\ast}\right]^\frac{\Gamma_t}{t}\left[\frac{\widetilde r+k}{\widetilde r+k_t^\ast}\right]^{1-\frac{\Gamma_t}{t}}\right]^t<1,\quad\forall k\neq k_t^\ast.\label{eq:relateveWit}
+		\end{align}
+		where
+		\begin{eqnarray}
+			\widetilde r=\frac{1+r_S}{r_R-r_S}.\notag
+		\end{eqnarray}
+		From the Lemma~\ref{prop:convergent_period}, $\frac{\Gamma_t}{t}$ is convergent and let $\frac{1}{\gamma}$ be the limit of $\frac{\Gamma_t}{t}$ and $\bar k$ be the limit of $k_t^\ast$. Then, 
+		\begin{eqnarray}
+			\lim_{t\rightarrow \infty}\frac{W_{i,t}}{W_{i_t^\ast t}(k_t^\ast)} = \left[\left[\frac{1-k}{1-\bar k}\right]^\frac{1}{\gamma}\left[\frac{\widetilde r+k}{\widetilde r+\bar k}\right]^{1-\frac{1}{\gamma}}\right]^t.\notag
+		\end{eqnarray}
+		
+		From Eq.\eqref{eq:relateveWit}, 
+		\begin{eqnarray}
+			\left[\frac{1-k}{1-\bar k}\right]^\frac{1}{\gamma}\left[\frac{\widetilde r+k}{\widetilde r+\bar k}\right]^{1-\frac{1}{\gamma}} < 1,\quad\forall k\neq \bar k.\notag
+		\end{eqnarray}
+		Therefore, 
+		\begin{eqnarray}\label{eq:relative_Wit-->0}
+			\lim_{t\rightarrow \infty}\frac{W_{i,t}}{W_{i_t^\ast t}(k_t^\ast)} = \left[\left[\frac{1-k}{1-\bar k}\right]^\frac{1}{\gamma}\left[\frac{\widetilde r+k}{\widetilde r+\bar k}\right]^{1-\frac{1}{\gamma}}\right]^t=0,\quad \forall k\neq k_t^\ast.
+		\end{eqnarray}
+		Eq.~\eqref{eq:relative_Wit-->0} implies the relative wealth of non-optimal strategy $k\neq k_t^\ast$ converges to 0 and also $Var(W_{i,t})$ converges to zero.
+
+		Therefore, for a sufficiently large $t$, $\hat\beta$ converges to a constant $\bar k$. Lemma~\ref{prop:hat-beta-convergence-to-bar-R} confirms that $\bar k$ should be equal to $\bar R$. 
+
+\end{proof}
+
+
+\bigskip 
+
+\subsubsection*{Proposition~\ref{thm:constant_period}}
+
+\begin{proof}[\textbf{Proof}]
+
+	   {
+			From lemma~\ref{thm:k_t^ast}, we can rewrite the Eq.~\eqref{eq:opt} in terms of $\gamma_t = t/\Gamma_t$:
+
+			\begin{eqnarray}
+				\gamma_t = \frac{1+r_R}{r_R+r_S}\frac{1}{1-k_t^\ast}.\notag
+			\end{eqnarray}
+
+			Proposition~\ref{thm:opti} implies $k_t^\ast$ converges to $\bar R$. Therefore:
+
+			\begin{eqnarray}
+				\lim_{t\rightarrow\infty}\gamma_t = \frac{1+r_R}{r_R+r_S}\frac{1}{1-\bar R}.\notag
+			\end{eqnarray}
+
+	   }
+       %Note that $\gamma_{t}$ in Eq.~\eqref{eq:gam_period} is defined as the periodic changes of the crisis, and $\Gamma_{t}$ represents the number of occurrences of the crisis within period $t$. Because $\gamma_{t}$ consists of the constant parameters ($r_{S}, r_{R}$), the periodic cycle of the crisis state depends on the return rates. Moreover, $\gamma_{t}$ is positively related with the optimal strategies ($k^{\ast}_{t}$). 
+       
+\end{proof}
+
+\newpage
+
+\subsection*{A2: Distribution of $\beta_i$ and initial wealth in the simulations}
+[todo: Model relabelling by compact ]
+%todo Model 라벨링 위치를 축 변수 이름 자리가 아닌 곳에 배치하기 @조남
+\begin{figure}[htbp]
+	\centering 	\caption{Initial Distribution of Risky Asset Ratio ($\beta_i$) in Simulations}
+	\includegraphics[width=0.7\textwidth]{_beta_distribution__combine.png}
+	\label{fig:beta_distribution}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering 	\caption{Initial Wealth Distribution in the Simulations}
+	\includegraphics[width=0.7\textwidth]{_initial_wealth__combine.png}
+	\label{fig:initial_wealth}
+\end{figure}
+
+\FloatBarrier
+\newpage
+\subsection*{A3: Optimal portfolio ($k_t^\ast$), crisis period $\gamma_t=t/\Gamma_t$, and the ratio of maximum to total wealth in the simulations ($wealth^\ast/\widetilde{W}$)}
+
+\begin{figure}[htbp]
+	\centering \caption{$k_t^\ast$ in the simulation}
+	\includegraphics[width=0.8\textwidth]{k_ast_t_combine.png}
+	\label{fig:k_t_ast}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering \caption{$\gamma_t$ in the simulation}
+	\includegraphics[width=0.8\textwidth]{gamma_t_combine.png}
+	\label{fig:gamma_t}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering \caption{The ratio of maximum to total wealth in the simulation}
+	\includegraphics[width=0.8\textwidth]{top_agent_wealth_ratio_combine.png}
+	\label{fig:top_wealth_ratio}
+\end{figure}
+
+
+
+\newpage 
+\include{ref_dat_1}
+
+\section*{Declarations}
+\smallskip
+
+\begin{itemize}[leftmargin=0.4cm]
+\item[\textbullet] \textbf{Author Contributions}\ The authors provided an equal contribution to designing and carrying out the research, analysing the results, and writing the paper.
+
+\item[\textbullet] \textbf{Funding}\ No funding was received from any resource.
+
+\item[\textbullet] \textbf{Conflict of interest}\ The authors declare that they have no conflict of interest.
+
+\item[\textbullet] \textbf{Ethical approval}\ This article does not contain any studies with human participants or animals performed by any of the authors.
+
+\item[\textbullet] \textbf{Informed consent}\ Informed consent was obtained from all individual participants included in the study
+\end{itemize}
+
+\end{document}
