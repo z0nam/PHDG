@@ -1,0 +1,10 @@
+# Environments
+
+.venv
+venv/
+env/
+.env
+
+# OS
+.DS_Store
+
