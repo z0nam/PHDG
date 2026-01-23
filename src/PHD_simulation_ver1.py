@@ -1,7 +1,10 @@
+import argparse
 import sys
-import pandas as pd
-import numpy as np
 import random
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
 
 # main param
 
@@ -13,6 +16,7 @@ r_S = 0.04              # risk-free asset return (all state)
 R_BAR = 0.8             # crisis threshold
 INITIAL_WEALTH = 100    # individual initial wealth
 [NORMAL, CRISIS] = [0, 1]
+PROGRESS_EVERY = 1000   # print progress every N steps
 
 # meta param
 
@@ -28,6 +32,7 @@ K_AST_FILENAME = "k_ast"
 TOP_AGENT_BETA_I_FILENAME = "top_beta_i"
 
 AGGREGATED_VARS_FILENAME = "aggregated"
+OUTPUT_DIR = Path("results/tables/ver2")
 
 BETA_SETTING = [BETA_UNIFORM, BETA_RANDOM] = [0, 1]
 INITIAL_WEALTH_SETTING = [INITIAL_WEALTH_SAME, INITIAL_WEALTH_RANDOM] = [0, 1]
@@ -53,7 +58,8 @@ class Models:
                                                       model.initial_wealth_setting))
             simulation = Simulation(beta_setting=model.beta_setting,
                                     initial_wealth_setting=model.initial_wealth_setting,
-                                    model_number=model.model_number)
+                                    model_number=model.model_number,
+                                    progress_every=PROGRESS_EVERY)
             simulation.run()
             simulation.save()
 
@@ -164,16 +170,20 @@ class Agent:
 # simulation initialization
 
 class Simulation:
-    def __init__(self, beta_setting, initial_wealth_setting, model_number):
+    def __init__(self, beta_setting, initial_wealth_setting, model_number, progress_every):
         self.world = World(beta_setting=beta_setting, initial_wealth_setting=initial_wealth_setting,
                            model_number=model_number)
+        self.progress_every = progress_every
 
     def run(self):
         for t in range(0, T):
-            print("time = %d" % t)
+            if t == 0 or (t + 1) % self.progress_every == 0 or t == T - 1:
+                print("time = %d" % t)
             self.world.update(t)
 
     def save(self):
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
         beta_history = pd.DataFrame(self.world.beta_history)
         beta_distribution = pd.DataFrame([agent.beta for agent in self.world.agents])
         final_wealth_distribution = pd.DataFrame([agent.wealth for agent in self.world.agents])
@@ -199,10 +209,10 @@ class Simulation:
         # k_ast_history = pd.DataFrame(self.world.k_ast)
         # top_agent_beta_i_history = pd.DataFrame(self.world.top_agent_beta_i_history)
 
-        beta_history.to_csv("Model%s_%s_.csv" % (self.world.model_number, AVERAGE_BETA_FILENAME))
-        beta_distribution.to_csv("Model%s_%s_.csv" % (self.world.model_number, BETA_DISTRIBUTION_FILENAME))
-        initial_wealth_distribution.to_csv("Model%s_%s_.csv" % (self.world.model_number, INITIAL_WEALTH_FILENAME))
-        final_wealth_distribution.to_csv("Model%s_%s_.csv" % (self.world.model_number, FINAL_WEALTH_FILENAME))
+        beta_history.to_csv(OUTPUT_DIR / ("Model%s_%s_.csv" % (self.world.model_number, AVERAGE_BETA_FILENAME)))
+        beta_distribution.to_csv(OUTPUT_DIR / ("Model%s_%s_.csv" % (self.world.model_number, BETA_DISTRIBUTION_FILENAME)))
+        initial_wealth_distribution.to_csv(OUTPUT_DIR / ("Model%s_%s_.csv" % (self.world.model_number, INITIAL_WEALTH_FILENAME)))
+        final_wealth_distribution.to_csv(OUTPUT_DIR / ("Model%s_%s_.csv" % (self.world.model_number, FINAL_WEALTH_FILENAME)))
 
         # state_history.to_csv("Model%s_%s_.csv" % (self.world.model_number, STATE_FILENAME))
         # t_history.to_csv("Model%s_%s_.csv" % (self.world.model_number, T_FILENAME))
@@ -210,12 +220,35 @@ class Simulation:
         # k_ast_history.to_csv("Model%s_%s_.csv" % (self.world.model_number, K_AST_FILENAME))
         # top_agent_beta_i_history.to_csv("Model%s_%s_.csv" % (self.world.model_number, TOP_AGENT_BETA_I_FILENAME))
 
-        aggregated_vars.to_csv("Model%s_%s_.csv" % (self.world.model_number, AGGREGATED_VARS_FILENAME))
+        aggregated_vars.to_csv(OUTPUT_DIR / ("Model%s_%s_.csv" % (self.world.model_number, AGGREGATED_VARS_FILENAME)))
 
 
 # Main Procedure
+def parse_args():
+    parser = argparse.ArgumentParser(description="Evolutionary portfolio simulation")
+    parser.add_argument("--n", type=int, default=N, help="Number of investors")
+    parser.add_argument("--t", type=int, default=T, help="Time horizon")
+    parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR, help="Directory for CSV outputs")
+    parser.add_argument("--progress-every", type=int, default=PROGRESS_EVERY, help="Print progress every N steps")
+    return parser.parse_args()
 
-print("Simulation Started.")
-models = Models()
-models.run()
-print("Simulation Ended.")
+
+def main():
+    global N, T, OUTPUT_DIR, PROGRESS_EVERY
+
+    args = parse_args()
+    N = args.n
+    T = args.t
+    OUTPUT_DIR = args.output_dir
+    PROGRESS_EVERY = args.progress_every
+
+    print("Simulation Started.")
+    print(f"Parameters: N={N}, T={T}, output_dir={OUTPUT_DIR}, progress_every={PROGRESS_EVERY}")
+
+    models = Models()
+    models.run()
+    print("Simulation Ended.")
+
+
+if __name__ == "__main__":
+    main()

@@ -77,6 +77,17 @@ Purpose:
 - Test robustness of convergence
 - Confirm irrelevance of initial heterogeneity for long-run dynamics
 
+### Scenario toggles in `ver2`
+
+- **Model A (`--scenario A`)**: fixed R̄, crisis return r_C = -1 (baseline).
+- **Model B (`--scenario B`)**: R̄ becomes time-varying via `--rbar-sigma` shocks around `--rbar-base`, clipped to [0,1].
+- **Model C (`--scenario C`)**: crisis return relaxed to `--crisis-return` (must satisfy -1 ≤ r_C < r_S = 0.04), fixed R̄.
+- **Model D (`--scenario D`)**: combines stochastic R̄ (as in B) with relaxed crisis return (as in C).
+
+Aggregated outputs (`*_aggregated_.csv`) now include:
+- t, β̂ₜ, top agent βᵢ, top agent wealth share, top 10% wealth share
+- state indicator (0 normal / 1 crisis), k*ₜ, cumulative crises Γₜ, crisis periodicity γₜ, theoretical γ*ₜ, realized R̄ₜ
+
 ---
 
 ## 6. Observables
@@ -116,4 +127,3 @@ Important notes for interpretation:
 
 Simulation results should be read as **structural implications**
 of portfolio competition under cumulative wealth dynamics.
-

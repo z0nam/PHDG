@@ -85,5 +85,12 @@ Important design principles for this repository:
 
 - Deterministic dynamics (no exogenous stochastic shocks)
 - Minimal behavioral assumptions
-- No
+- No anticipatory optimization; selection operates on realized wealth
+- Threshold-driven fragility as the sole non-linearity
+- Transparency: outputs are simple CSVs for downstream analysis
 
+## 6. Recent updates (January 2026)
+
+- Added `ver2` runner with scenario toggles (A–D) for variable R̄ and relaxed crisis returns.
+- Aggregated outputs now include k*ₜ, Γₜ, γₜ, γ*ₜ, top agent βᵢ and wealth concentration metrics.
+- Output directories are organized by scenario under `results/tables/ver2/<scenario>/`.
