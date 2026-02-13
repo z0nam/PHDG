@@ -56,7 +56,7 @@ where:
 | Fragility threshold (R̄) | 0.8 |
 | Risky return (r_R) | 0.10 |
 | Safe return (r_S) | 0.04 |
-| Time horizon | 1,000 periods |
+| Time horizon | 2,000 periods |
 
 These values are chosen for clarity, not calibration.
 

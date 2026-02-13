@@ -43,28 +43,28 @@ SCENARIOS = [
         "label": "ModelC_rc-0.7",
         "args": ["--scenario", "C", "--crisis-return", "-0.7"],
         "params": "R_bar=0.8 | r_R_N=0.1 | r_R_C=-0.7 | r_S=0.04",
-        "show_star": False,
+        "show_star": True,
     },
     {
         "key": "c_rc-0.5",
         "label": "ModelC_rc-0.5",
         "args": ["--scenario", "C", "--crisis-return", "-0.5"],
         "params": "R_bar=0.8 | r_R_N=0.1 | r_R_C=-0.5 | r_S=0.04",
-        "show_star": False,
+        "show_star": True,
     },
     {
         "key": "d_rc-0.7",
         "label": "ModelD_rc-0.7",
         "args": ["--scenario", "D", "--rbar-sigma", "0.01", "--crisis-return", "-0.7"],
         "params": "R_bar~N(0.8,0.01) | r_R_N=0.1 | r_R_C=-0.7 | r_S=0.04",
-        "show_star": False,
+        "show_star": True,
     },
     {
         "key": "d_rc-0.5",
         "label": "ModelD_rc-0.5",
         "args": ["--scenario", "D", "--rbar-sigma", "0.01", "--crisis-return", "-0.5"],
         "params": "R_bar~N(0.8,0.01) | r_R_N=0.1 | r_R_C=-0.5 | r_S=0.04",
-        "show_star": False,
+        "show_star": True,
     },
 ]
 
@@ -107,6 +107,8 @@ def run_simulation(scenario: dict):
 def make_plot(scenario: dict, model_number: int):
     if scenario["key"].startswith("c_rc-"):
         agg = BASE_OUTPUT / scenario["key"] / f"ModelC_Model{model_number}_aggregated_.csv"
+    elif scenario["key"].startswith("d_rc-"):
+        agg = BASE_OUTPUT / scenario["key"] / f"ModelD_Model{model_number}_aggregated_.csv"
     else:
         agg = BASE_OUTPUT / scenario["key"] / f"{scenario['label']}_Model{model_number}_aggregated_.csv"
     df = pd.read_csv(agg, index_col=0)

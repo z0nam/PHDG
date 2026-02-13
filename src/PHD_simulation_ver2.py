@@ -140,13 +140,17 @@ class World:
 
         r_bar_t = self.r_bar_strategy(t)
         self.r_bar_history.append(r_bar_t)
-        denom = (r_R_N - r_S) * (1 - r_bar_t)
-        gamma_star = (1 + r_R_N) / denom if denom != 0 else float("inf")
+        gamma_star_den = 1 - ((r_S - self.crisis_return) / (1 + r_S)) * r_bar_t
+        gamma_star_num = (r_R_N - self.crisis_return) / (r_R_N - r_S)
+        gamma_star = (gamma_star_num / gamma_star_den) if gamma_star_den != 0 else float("inf")
         self.gamma_period_history.append(gamma_period)
         self.gamma_star_history.append(gamma_star)
 
         if t > 0:
-            self.k_ast.append(1 - ((1 + r_R_N)/(r_R_N - r_S))*(self.total_number_of_crisis[-1] / self.total_period[-1])) # valid only when r_R_C = -1
+            k_ast_factor = (1 + r_S) / (r_S - self.crisis_return)
+            k_ast_adjust = (r_R_N - self.crisis_return) / (r_R_N - r_S)
+            k_ast_t = k_ast_factor * (1 - k_ast_adjust * (self.total_number_of_crisis[-1] / self.total_period[-1]))
+            self.k_ast.append(k_ast_t)
         else:  # i.e., t=0
             self.k_ast.append(-1)
 
